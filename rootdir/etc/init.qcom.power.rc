@@ -69,6 +69,7 @@ on charger
 # Powersave
 on property:sys.perf.profile=0
     stop mpdecision
+    write /sys/kernel/msm_thermal/enabled 0
     write /sys/devices/system/cpu/cpu0/online 1
     write /sys/devices/system/cpu/cpu1/online 1
     write /sys/devices/system/cpu/cpu2/online 1
@@ -85,11 +86,17 @@ on property:sys.perf.profile=0
     write /sys/devices/system/cpu/cpufreq/conservative/sampling_rate_min 160000
     write /sys/devices/system/cpu/cpufreq/conservative/up_threshold 90
     write /sys/class/kgsl/kgsl-3d0/pwrscale/trustzone/governor ondemand
+    write /sys/kernel/msm_thermal/low_thresh "1566000 64 61"
+    write /sys/kernel/msm_thermal/mid_thresh "1134000 70 67"
+    write /sys/kernel/msm_thermal/high_thresh "918000 76 72"
+    write /sys/kernel/msm_thermal/sampling_ms 250
+    write /sys/kernel/msm_thermal/enabled 1
     start mpdecision
 
 # Balanced
 on property:sys.perf.profile=1
     stop mpdecision
+    write /sys/kernel/msm_thermal/enabled 0
     write /sys/devices/system/cpu/cpu0/online 1
     write /sys/devices/system/cpu/cpu1/online 1
     write /sys/devices/system/cpu/cpu2/online 1
@@ -111,11 +118,17 @@ on property:sys.perf.profile=1
     write /sys/devices/system/cpu/cpufreq/interactive/up_threshold_any_cpu_freq 810000
     write /sys/devices/system/cpu/cpufreq/interactive/up_threshold_any_cpu_load 70
     write /sys/class/kgsl/kgsl-3d0/pwrscale/trustzone/governor ondemand
+    write /sys/kernel/msm_thermal/low_thresh "1566000 67 64"
+    write /sys/kernel/msm_thermal/mid_thresh "1134000 73 70"
+    write /sys/kernel/msm_thermal/high_thresh "918000 79 75"
+    write /sys/kernel/msm_thermal/sampling_ms 250
+    write /sys/kernel/msm_thermal/enabled 1
     start mpdecision
 
 # High performance
 on property:sys.perf.profile=2
     stop mpdecision
+    write /sys/kernel/msm_thermal/enabled 0
     write /sys/devices/system/cpu/cpu0/online 1
     write /sys/devices/system/cpu/cpu1/online 1
     write /sys/devices/system/cpu/cpu2/online 1
@@ -125,6 +138,11 @@ on property:sys.perf.profile=2
     write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor performance
     write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor performance
     write /sys/class/kgsl/kgsl-3d0/pwrscale/trustzone/governor performance
+    write /sys/kernel/msm_thermal/low_thresh "1674000 70 67"
+    write /sys/kernel/msm_thermal/mid_thresh "1242000 76 73"
+    write /sys/kernel/msm_thermal/high_thresh "1026000 82 78"
+    write /sys/kernel/msm_thermal/sampling_ms 250
+    write /sys/kernel/msm_thermal/enabled 1
 
 on property:sys.boot_completed=1
     write /sys/module/rpm_resources/enable_low_power/L2_cache 1
